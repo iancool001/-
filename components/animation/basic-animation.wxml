@@ -1,0 +1,5 @@
+<view class="animation-container">
+  <view class="animation-element" animation="{{animationData}}">
+    <!-- 动画元素 -->
+  </view>
+</view> 

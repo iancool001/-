@@ -1,0 +1,20 @@
+<view class="container">
+  <view class="input-area">
+    <input 
+      class="word-input"
+      placeholder="请输入要学习的单词"
+      value="{{word}}"
+      bindinput="onInput"
+    />
+    <button 
+      class="submit-btn"
+      loading="{{loading}}"
+      bindtap="testAPI"
+    >测试API</button>
+  </view>
+ 
+  <view class="result-area" wx:if="{{result}}">
+    <text class="result-title">API返回结果：</text>
+    <text class="result-content">{{result}}</text>
+  </view>
+</view> 
