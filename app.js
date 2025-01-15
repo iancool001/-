@@ -1,5 +1,3 @@
-import { initConfig } from './utils/config'
-
 App({
   globalData: {
     userInfo: null,
@@ -10,9 +8,6 @@ App({
     }
   },
   onLaunch() {
-    // 初始化配置
-    initConfig()
-
     // 初始化云开发
     if (wx.cloud) {
       wx.cloud.init({

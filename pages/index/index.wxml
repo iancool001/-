@@ -9,12 +9,7 @@
     <button 
       class="submit-btn"
       loading="{{loading}}"
-      bindtap="testAPI"
-    >测试API</button>
-  </view>
- 
-  <view class="result-area" wx:if="{{result}}">
-    <text class="result-title">API返回结果：</text>
-    <text class="result-content">{{result}}</text>
+      bindtap="onSubmit"
+    >开始学习</button>
   </view>
 </view> 

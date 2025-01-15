@@ -1,14 +1,7 @@
-import WordAnalyzer from '../../services/ai/word-analyzer'
-
 Page({
   data: {
     word: '',
-    loading: false,
-    result: null
-  },
-
-  onLoad() {
-    console.log('页面加载')
+    loading: false
   },
 
   // 输入单词
@@ -18,8 +11,8 @@ Page({
     })
   },
 
-  // 测试API调用
-  async testAPI() {
+  // 提交学习
+  async onSubmit() {
     if (!this.data.word) {
       wx.showToast({
         title: '请输入单词',
@@ -31,23 +24,37 @@ Page({
     this.setData({ loading: true })
 
     try {
-      const analyzer = new WordAnalyzer()
-      const result = await analyzer.analyzeWord(this.data.word)
+      // 调用AI服务
+      const result = await this.analyzeWord(this.data.word)
       
-      console.log('API调用结果：', result)
-      
-      this.setData({
-        result: JSON.stringify(result, null, 2),
-        loading: false
+      // 跳转到学习页
+      wx.navigateTo({
+        url: `/pages/learning/learning?scene=${JSON.stringify(result)}`
       })
-
-    } catch (error) {
-      console.error('API调用失败：', error)
+    } catch (err) {
       wx.showToast({
-        title: '调用失败，请查看控制台',
+        title: '分析失败，请重试',
         icon: 'none'
       })
+    } finally {
       this.setData({ loading: false })
     }
+  },
+
+  // 调用AI分析服务
+  analyzeWord(word) {
+    // TODO: 实现AI服务调用
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({
+          word,
+          scene: {
+            type: 'basic',
+            elements: [],
+            interactions: []
+          }
+        })
+      }, 1000)
+    })
   }
 }) 
