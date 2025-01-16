@@ -1,7 +1,10 @@
+import { deepseekService } from '../../services/ai/deepseek'
+
 Page({
   data: {
     word: '',
-    loading: false
+    loading: false,
+    testResult: ''
   },
 
   // 输入单词
@@ -42,19 +45,51 @@ Page({
   },
 
   // 调用AI分析服务
-  analyzeWord(word) {
-    // TODO: 实现AI服务调用
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({
-          word,
-          scene: {
-            type: 'basic',
-            elements: [],
-            interactions: []
-          }
-        })
-      }, 1000)
+  async analyzeWord(word) {
+    try {
+      const sceneData = await deepseekService.analyzeWord(word)
+      return JSON.parse(sceneData)
+    } catch (error) {
+      console.error('AI analysis failed:', error)
+      throw error
+    }
+  },
+
+  // 添加测试函数
+  async testAIService() {
+    this.setData({ 
+      loading: true,
+      testResult: '测试中...'
     })
+
+    try {
+      // 测试简单单词
+      const testWord = 'run'
+      const result = await deepseekService.analyzeWord(testWord)
+      
+      this.setData({
+        testResult: JSON.stringify(result, null, 2)
+      })
+      
+      console.log('API测试成功:', result)
+      
+      wx.showToast({
+        title: 'API测试成功',
+        icon: 'success'
+      })
+    } catch (error) {
+      console.error('API测试失败:', error)
+      
+      this.setData({
+        testResult: `测试失败: ${error.message}`
+      })
+      
+      wx.showToast({
+        title: '测试失败',
+        icon: 'error'
+      })
+    } finally {
+      this.setData({ loading: false })
+    }
   }
 }) 

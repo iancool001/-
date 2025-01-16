@@ -11,5 +11,16 @@
       loading="{{loading}}"
       bindtap="onSubmit"
     >开始学习</button>
+    
+    <button 
+      class="test-btn"
+      loading="{{loading}}"
+      bindtap="testAIService"
+    >测试AI服务</button>
+  </view>
+
+  <view class="test-result" wx:if="{{testResult}}">
+    <text class="result-title">测试结果:</text>
+    <text class="result-content">{{testResult}}</text>
   </view>
 </view> 
